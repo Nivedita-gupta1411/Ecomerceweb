@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Item</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-gray-800">📦 Add New Listing</h1>
+    <a href="homePage.html" class="text-blue-600 font-semibold hover:underline">Back to Home</a>
+  </header>
+
+  <!-- Add Item Form -->
+  <main class="max-w-2xl mx-auto bg-white mt-8 p-6 rounded-xl shadow-md">
+    <form id="addItemForm" enctype="multipart/form-data">
+      
+      <div class="mb-4">
+        <label class="block font-semibold mb-1" for="title">Item Title</label>
+        <input id="title" name="title" type="text" required class="w-full border p-2 rounded"/>
+      </div>
+
+      <div class="mb-4">
+        <label class="block font-semibold mb-1" for="description">Description</label>
+        <textarea id="description" name="description" rows="4" required class="w-full border p-2 rounded"></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label class="block font-semibold mb-1" for="category">Category</label>
+        <select id="category" name="category" required class="w-full border p-2 rounded">
+          <option value="">Select Category</option>
+          <option value="books">Books</option>
+          <option value="furniture">Furniture</option>
+          <option value="electronics">Electronics</option>
+          <option value="clothes">Clothes</option>
+          <option value="services">Services</option>
+          <option value="others">Others</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="block font-semibold mb-1" for="price">Price (₹)</label>
+        <input id="price" name="price" type="number" required min="0" class="w-full border p-2 rounded"/>
+      </div>
+
+      <div class="mb-4">
+        <label class="block font-semibold mb-1" for="image">Upload Image</label>
+        <input id="image" name="image" type="file" accept="image/*" required class="w-full border p-2 rounded"/>
+      </div>
+
+      <div class="mb-4">
+        <label class="block font-semibold mb-1" for="location">Your Location</label>
+        <input id="location" name="location" type="text" required class="w-full border p-2 rounded"/>
+      </div>
+
+      <div class="mb-4">
+        <label class="block font-semibold mb-1" for="condition">Condition</label>
+        <select id="condition" name="condition" class="w-full border p-2 rounded">
+          <option value="Used">Used</option>
+          <option value="New">New</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="block font-semibold mb-1" for="contact">Contact Number</label>
+        <input id="contact" name="contact" type="text" class="w-full border p-2 rounded"/>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white font-semibold p-2 rounded hover:bg-blue-700">
+        Add Listing
+      </button>
+    </form>
+  </main>
+
+  <!-- Script to Submit to Backend -->
+  <!-- <script>
+    const form = document.getElementById("addItemForm");
+  
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+  
+      const userStr = localStorage.getItem("user");
+      if (!userStr) {
+        alert("User not logged in.");
+        return;
+      }
+  
+      const user = JSON.parse(userStr);
+      const userId = user._id;
+  
+      const formData = new FormData(form);
+      formData.append("user", userId); // ✅ Must be exactly "user"
+  
+      try {
+        const res = await fetch("http://localhost:5000/api/items/add", {
+          method: "POST",
+          body: formData,
+        });
+  
+        const result = await res.json();
+        if (res.ok) {
+          alert("✅ Item added successfully!");
+          form.reset();
+          window.location.href = "myListing.html"; // redirect to see updated list
+        } else {
+          console.error("❌ Error adding item:", result);
+          alert("Error: " + result.message);
+        }
+      } catch (err) {
+        console.error("❌ Network error:", err);
+        alert("Something went wrong.");
+      }
+    });
+  });
+  </script> -->
+  <script>
+    // const form = document.getElementById("addItemForm");
+    // form.addEventListener("submit", async (e) => {
+    //   e.preventDefault(); // default behavior रोकें [preventDefault usage explained] :contentReference[oaicite:5]{index=5}
+
+    //   const userStr = localStorage.getItem("user");
+    //   if (!userStr) { alert("User not logged in."); return; }
+    //   let user;
+    //   try{
+    //   user = JSON.parse(userStr);
+    // } catch(err){
+    //   alert("correpting user session. please log inagain");
+    //   return;
+    // }
+    // if(!user || !user._id){
+    //   alert("invalid user data.please log in again")
+    //   return;
+    // }
+    //   const userId = user._id;
+
+    //   const formData = new FormData(form);
+    //   formData.append("user", userId); 
+
+    //   try {
+    //     const res = await fetch("http://localhost:5000/api/products", {
+    //       method: "POST",
+    //       headers:{
+    //         "Content-Type":"application/json"
+    //       },
+    //       body: JSON.stringify(payload),
+    //     });
+    //     const result = await res.json();
+
+    //     if (res.ok) {
+    //       alert("Item added successfully!");
+    //       // form.reset();
+    //       // setTimeout(()=>{  },500);
+    //       window.location.href = "myListing.html";
+        
+    //     } else {
+    //       console.error("Error adding item:", result);
+    //       alert("Error: " + result.message);
+    //     }
+    //   } catch (err) {
+    //     console.error(" Network error:", err);
+    //     alert("Something went wrong.");
+    //   }
+    // });
+
+
+const form = document.getElementById("addItemForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const userStr = localStorage.getItem("user");
+  if (!userStr) {
+    alert("User not logged in.");
+    return;
+  }
+
+  let user;
+  try {
+    user = JSON.parse(userStr);
+  } catch (err) {
+    alert("Corrupted user session. Please log in again.");
+    return;
+  }
+
+  if (!user || !user._id) {
+    alert("Invalid user data. Please log in again.");
+    return;
+  }
+
+  const userId = user._id;
+
+  const formData = new FormData(form);
+  formData.append("user", userId);
+
+  try {
+    const res = await fetch("http://localhost:5000/api/products", {
+      method: "POST",
+      body: formData, // ✅ FormData includes the file
+    });
+
+    const result = await res.json();
+
+    if (res.ok) {
+      alert("✅ Item added successfully!");
+      window.location.href = "myListing.html";
+    } else {
+      console.error("❌ Error adding item:", result);
+      alert("Error: " + result.message);
+    }
+  } catch (err) {
+    console.error("❌ Network error:", err);
+    alert("Something went wrong.");
+  }
+});
+
+  </script>
+
+
+</body>
+</html>

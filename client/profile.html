@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+    
+  <div class="bg-white shadow-lg rounded-xl w-full max-w-md p-6">
+    
+   <!-- Profile Header -->
+<div class="flex items-center space-x-4 mb-6">
+  <img id="profile-photo" id="profile-photo" alt="Profile Photo"
+       class="w-20 h-20 rounded-full border-2 border-blue-500 object-cover">
+  <div>
+    <h2 id="name" class="text-xl font-bold text-gray-800">Name</h2>
+    <p id="email" class="text-sm text-gray-500">email@example.com</p>
+  </div>
+</div>
+
+<!-- Profile Info -->
+<div class="space-y-2 text-sm text-gray-700">
+  <p><strong>📍 Location:</strong> <span id="location">-</span></p>
+  <p><strong>📝 Bio:</strong> <span id="bio">-</span></p>
+  <p><strong>⭐ Trust Score:</strong> <span id="trust">-</span></p>
+</div>
+
+<!-- Edit Profile Section -->
+<form id="edit-form" class="space-y-3">
+  <div>
+    <label class="block text-sm font-medium text-gray-600">Change Photo</label>
+    <input id="photo-input" type="file" class="mt-1 w-full border p-2 rounded-md" />
+  </div>
+  <div>
+    <label class="block text-sm font-medium text-gray-600">Update Bio</label>
+    <textarea id="edit-bio" class="w-full border p-2 rounded-md" rows="2" placeholder="Write something..."></textarea>
+  </div>
+  <div>
+    <label class="block text-sm font-medium text-gray-600">Update Location</label>
+    <input id="edit-location" type="text" placeholder="Your location" class="w-full border p-2 rounded-md" />
+  </div>
+  <button type="submit"
+          class="w-full mt-2 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+    Save Changes
+  </button>
+</form>
+
+    </div>
+  </div>
+  <script src="profile.js"></script>
+</body>
+</html>

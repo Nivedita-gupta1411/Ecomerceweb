@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local Community Marketplace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-50">
+    <h1 class="text-2xl font-bold flex items-center gap-2">🏡 Local Community Marketplace</h1>
+    <nav class="space-x-6">
+      <a href="additems.html" class="text-blue-600 hover:underline">Add Item</a>
+      <a href="myListing.html" class="text-blue-600 hover:underline">My Listings</a>
+      <a href="profile.html" class="text-blue-600 hover:underline">Profile</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-blue-100 py-12 text-center">
+    <h2 class="text-3xl font-bold mb-2">Buy, Sell, and Support Your Local Community</h2>
+    <p class="text-gray-700 mb-4">Find used goods or share what you no longer need — all within your neighborhood.</p>
+    <a href="additems.html" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">+ Post an Item</a>
+  </section>
+
+  <!-- Listings Grid -->
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <h3 class="text-xl font-semibold mb-6">Recent Listings</h3>
+    <div id="recent-listings" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-6">
+    © 2025 Local Community Marketplace. All rights reserved.
+  </footer>
+
+  <!-- Script to Load Items -->
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        // const res = await fetch("http://localhost:5000/api/items");
+        const res = await fetch("http://localhost:5000/api/products");
+
+        const items = await res.json();
+
+        const container = document.getElementById("recent-listings");
+        container.innerHTML = "";
+
+        if (!Array.isArray(items) || items.length === 0) {
+          container.innerHTML = "<p class='text-gray-500'>No listings found.</p>";
+          return;
+        }
+
+        items.slice(0, 6).forEach(item => {
+          const card = document.createElement("div");
+          card.className = "bg-white shadow rounded-xl overflow-hidden hover:shadow-lg hover:bg-gray-100 transition border cursor-pointer active:scale-95";
+
+          card.innerHTML = `
+            <img src="http://localhost:5000/upload/${item.image}" alt="Product Image" class="w-full h-48 object-cover" />
+            <div class="p-4">
+              <h4 class="text-lg font-bold mb-1">${item.title}</h4>
+              <p class="text-gray-600">₹${item.price} - ${item.location}</p>
+            </div>
+          `;
+
+          card.onclick = () => {
+            localStorage.setItem("selectedProduct", JSON.stringify(item));
+            window.location.href = "productid.html";
+          };
+
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error("Error loading items:", err);
+      }
+    });
+  </script>
+</body>
+</html>

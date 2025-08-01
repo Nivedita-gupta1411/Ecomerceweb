@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Listings</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-gray-800">📋 My Listings</h1>
+    <a href="homePage.html" class="text-blue-600 hover:underline font-medium">← Back to Home</a>
+  </header>
+
+  <!-- Listing Container -->
+  <main class="max-w-6xl mx-auto p-6">
+    <div id="listingsContainer" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Listings will be injected here -->
+    </div>
+  </main>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const listingsContainer = document.getElementById("listingsContainer");
+
+    async function fetchListings() {
+      try {
+        const userStr = localStorage.getItem("user");
+        if (!userStr) {
+          listingsContainer.innerHTML = `<p class="text-red-500">User not logged in.</p>`;
+          return;
+        }
+
+        const user = JSON.parse(userStr);
+        const userId = user._id;
+        // console.log(userId);
+        const res = await fetch(`http://localhost:5000/api/products/mylisting/${userId}`);
+        const listings = await res.json();
+
+        if (!Array.isArray(listings) || listings.length === 0) {
+          listingsContainer.innerHTML = `
+            <div class="col-span-full text-center text-gray-500">
+              No listings found. <a href="additems.html" class="text-blue-600 underline">Add a listing</a>.
+            </div>`;
+          return;
+        }
+
+        listings.forEach(item => {
+          const card = document.createElement("div");
+          card.className = "bg-white p-4 rounded-xl shadow hover:shadow-lg transition";
+
+          card.innerHTML = `
+            <img src="http://localhost:5000/upload/${item.image}" alt="item" class="w-full h-48 object-cover rounded mb-3"/>
+            <h2 class="text-xl font-semibold text-gray-800">${item.title}</h2>
+            <p class="text-gray-600 mt-1">${item.description}</p>
+            <p class="text-sm text-gray-500 mt-1">📍 ${item.location}</p>
+            <p class="text-lg font-bold text-green-600 mt-2">₹${item.price}</p>
+          `;
+
+          listingsContainer.appendChild(card);
+        });
+
+      } catch (err) {
+        console.error("Error fetching listings:", err);
+        listingsContainer.innerHTML = `<p class="text-red-500">Failed to load listings.</p>`;
+      }
+    }
+
+    fetchListings();
+  </script>
+
+</body>
+</html>

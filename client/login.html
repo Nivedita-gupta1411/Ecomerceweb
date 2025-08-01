@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup | Local Community Marketplace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white p-4 text-center shadow-md">
+    <h1 class="text-2xl font-bold">Local Community Marketplace</h1>
+  </header>
+
+  <main class="max-w-md mx-auto mt-8 bg-white p-6 rounded-xl shadow-lg">
+
+    <!-- 📝 Signup Section -->
+    <section>
+      <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center">Signup 📝</h2>
+
+      <form id="signup-form" class="space-y-4">
+        <div>
+          <label for="signup-name" class="block text-sm font-medium">Name:</label>
+          <input type="text" id="signup-name" required
+                 class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+        <div>
+          <label for="signup-email" class="block text-sm font-medium">Email:</label>
+          <input type="email" id="signup-email" required
+                 class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+        <div>
+          <label for="signup-password" class="block text-sm font-medium">Password:</label>
+          <input type="password" id="signup-password" required
+                 class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+        <div>
+          <label for="signup-confirm-password" class="block text-sm font-medium">Confirm Password:</label>
+          <input type="password" id="signup-confirm-password" required
+                 class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!--  Location -->
+        <div>
+          <button type="button" id="location-btn"
+                  class="bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 rounded-md">
+            Click to Add Your Location
+          </button>
+          <p class="text-sm mt-2 text-gray-600" id="latitude-res"></p>
+          <p class="text-sm text-gray-600" id="longitude-res"></p>
+        </div>
+
+        <button type="submit"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-md">
+          Sign Up
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script src="mind.js"></script>
+</body>
+</html>
