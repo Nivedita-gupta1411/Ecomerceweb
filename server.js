@@ -31,7 +31,8 @@ app.get("/", (req, res) => {
 
 // Connect to MongoDB and Start Server
 const PORT = process.env.PORT || 5000;
-
+// const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
